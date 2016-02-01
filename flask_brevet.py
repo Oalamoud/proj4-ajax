@@ -1,0 +1,97 @@
+"""
+Simple Flask web site 
+
+Edited by Omar Alamoudi
+"""
+
+import flask
+# from flask import render_template
+from flask import request  # Data from a submitted form
+from flask import url_for
+from flask import jsonify # For AJAX transactions
+
+import json
+import logging
+import argparse  # For the vocabulary list
+import arrow
+import datetime
+from dateutil import tz
+
+###
+# Globals
+###
+app = flask.Flask(__name__)
+import CONFIG
+app.secret_key = CONFIG.COOKIE_KEY  # Should allow using session variables
+
+###
+# Pages
+###
+
+@app.route("/")
+@app.route("/index")
+@app.route("/brevet")
+def index():
+    
+    return flask.render_template('calc.html')
+
+  
+
+
+
+
+  
+
+
+#################
+# Functions used within the templates
+#################
+
+@app.template_filter( 'filt' )
+def format_filt( something ):
+    """
+    Example of a filter that can be used within
+    the Jinja2 code
+    """
+    return "Not what you asked for"
+  
+###################
+#   Error handlers
+###################
+@app.errorhandler(404)
+def error_404(e):
+  app.logger.warning("++ 404 error: {}".format(e))
+  return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def error_500(e):
+   app.logger.warning("++ 500 error: {}".format(e))
+   assert app.debug == False #  I want to invoke the debugger
+   return render_template('500.html'), 500
+
+@app.errorhandler(403)
+def error_403(e):
+  app.logger.warning("++ 403 error: {}".format(e))
+  return render_template('403.html'), 403
+
+
+
+#############
+
+# Set up to run from cgi-bin script, from
+# gunicorn, or stand-alone.
+#
+
+if __name__ == "__main__":
+    # Standalone. 
+    app.debug = True
+    app.logger.setLevel(logging.DEBUG)
+    print("Opening for global access on port {}".format(CONFIG.PORT))
+    app.run(port=CONFIG.PORT, host="0.0.0.0")
+else:
+    # Running from cgi-bin or from gunicorn WSGI server, 
+    # which makes the call to app.run.  Gunicorn may invoke more than
+    # one instance for concurrent service.
+    #FIXME:  Debug cgi interface 
+    app.debug=False
+
