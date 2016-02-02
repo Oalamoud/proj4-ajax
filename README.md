@@ -19,4 +19,13 @@ I will leave much of the design to you.
 
 ## Testing
 
-A requirement of this project will be designing a systematic test suite. 
+Using nosetest test all the posible outputs
+
+## How to use
+on ix `ix.cs.uoregon.edu/~oka/public_http/cis399se/htbin/proj4_ajax`
+run flask_brevet.py
+The code is on brevet.py
+
+
+## Modified by Omar Alamoudi
+oka@cs.uoregon.edu
