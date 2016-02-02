@@ -19,7 +19,7 @@ I will leave much of the design to you.
 
 ## Testing
 
-Using nosetest test all the posible outputs
+Using nosetest test all the possible outputs
 
 ## How to use
 on ix `ix.cs.uoregon.edu/~oka/public_http/cis399se/htbin/proj4_ajax`
