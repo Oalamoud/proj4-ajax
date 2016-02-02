@@ -68,8 +68,12 @@ def calc_times():
   Expects one URL-encoded argument, the number of miles. 
   """
   app.logger.debug("Got a JSON request");
-  miles = request.args.get('miles', 0, type=int)
-  return jsonify(result=miles * 2)
+  brevet_distance = request.args.get('brevet_distance',300,type=int)
+  app.logger.debug(brevet_distance);
+  miles = request.args.get('miles', type=int)
+  km = brevet.miles_to_km(miles)
+  time = [brevet.open_time(km,brevet_distance),brevet.close_time(km,brevet_distance)]
+  return jsonify(result=time)
  
 #################
 #
